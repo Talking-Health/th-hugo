@@ -3,9 +3,9 @@
 FROM alpine:3
 
 RUN apk --no-cache --update upgrade; \
-    apk add --no-cache curl hugo
+    apk add --no-cache hugo
 
-# A volume we can mount to generate from and to
-WORKDIR /usr/src/website
+COPY crontab /etc/crontabs/root
+COPY gohugo /
 
-CMD [ "/usr/bin/hugo" ]
+CMD [ "/usr/sbin/crond", "-f" ]
